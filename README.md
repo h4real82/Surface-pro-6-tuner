@@ -21,9 +21,15 @@ Dieses Projekt kombiniert die stärksten Ansätze führender Windows-Tuning-Tool
 
 ```text
 Surface-pro-6-tuner/
+├── SurfacePro6Tuner.exe             # 🖥️ Eigenständige native Windows GUI App (Zero-Console)
 ├── SurfaceTuner.ps1                 # Haupt-CLI & Headless Automation Engine
-├── Start-Tuner.bat                  # 1-Klick Launcher mit automatischer UAC-Erhoehung
+├── Start-Tuner.bat                  # Alternativer 1-Klick CMD-Launcher
 ├── src/
+│   ├── gui/                         # Moderne Fluent Dark WPF-Oberfläche
+│   │   ├── MainWindow.xaml          # XAML UI-Design (Karten, Fallback-Menü, Live-Log)
+│   │   ├── App.ps1                  # WPF-Controller & Event-Binding
+│   │   ├── Launcher.cs              # Native C# GUI-Wrapper
+│   │   └── app.manifest             # UAC-Manifest (fordert requireAdministrator an)
 │   ├── engine/                      # Asynchrone Job-Engine & Profil-Runner
 │   │   └── Job-Runner.ps1
 │   ├── hardware/                    # Hardware-Erkennung & PROCHOT-Thermal-Monitoring
@@ -35,8 +41,9 @@ Surface-pro-6-tuner/
 │       ├── Registry-Validator.ps1   # Validiert geplante Tweaks vor Ausfuehrung
 │       ├── Backup-Manager.ps1       # Erstellt Pre-Tweak Snapshots & Rollbacks
 │       └── Test-SafetyModule.ps1   # Automatisierte Unit-Tests fuer Safety Gates
-├── tests/                           # End-to-End Test Suite
-│   └── Test-TunerE2E.ps1
+├── tests/                           # Test Suiten
+│   ├── Test-TunerE2E.ps1            # End-to-End Integrations-Tests
+│   └── Test-GuiSyntax.ps1           # GUI- & XAML-Validierung
 ├── backups/                         # Lokale Rollback-Snapshots (in .gitignore)
 ├── ref/                             # Geklonte Referenzprojekte (in .gitignore)
 ├── .agents/                         # Antigravity Rules & Workflows
@@ -49,14 +56,21 @@ Surface-pro-6-tuner/
 
 ## 🚀 Nutzung
 
-### 1. 1-Klick-Starter (Interaktiv mit UAC-Abfrage)
-Einfach die Datei [`Start-Tuner.bat`](file:///c:/Users/h4rea/Documents/Projekte/Surface-pro-6-tuner/Start-Tuner.bat) per Doppelklick starten. Das Skript fordert automatisch Administratorrechte an und bietet ein Menü:
-1. Alles optimieren (Performance + Battery + Thermal)
-2. Nur Performance & Telemetrie
-3. Nur Akku & Modern Standby
-4. Hardware- & Thermal-Status
-5. Dry-Run Simulation (Sicherheitstest)
-6. Rollback / Letztes Snapshot wiederherstellen
+### 1. Als Windows Desktop App (Empfohlen)
+Starte einfach direkt per Doppelklick die Anwendung:
+👉 **[`SurfacePro6Tuner.exe`](file:///c:/Users/h4rea/Documents/Projekte/Surface-pro-6-tuner/SurfacePro6Tuner.exe)**
+
+* **Kein schwarzes Konsolenfenster**: Startet sofort als moderne, native Windows-Anwendung im Fluent Dark Design.
+* **Automatische Rechteerhöhung**: Fordert über das Windows-UAC-Manifest automatisch Administratorrechte an, damit Änderungen ohne Zugriffsfehler ins System geschrieben werden können.
+* **Moderne Aktions-Karten**:
+  - `[Performance anwenden]`: Deaktiviert Telemetrie, GameDVR, Cortana und Web-Suche.
+  - `[Akku anwenden]`: Schaltet Connected Standby Wake-Timer ab und drosselt Hintergrund-Apps.
+  - `[Thermal unthrotteln]`: Wirkt dem 400-MHz-BD-PROCHOT-Lock des Surface Pro 6 entgegen.
+  - `[Alles optimieren]`: Wendet alle empfohlenen Tweaks in einem Schritt an.
+* **Eingebaute Fallback-Funktion (Rückgängig machen)**:
+  - Jeder angewandte Tweak erzeugt automatisch ein Snapshot in `backups/`.
+  - Über das Dropdown-Menü oder den Button `[Letzte Aktion rückgängig machen]` kann jede Aktion mit 1 Klick auf den Originalzustand zurückgerollt werden.
+* **Live-Aktivitätslog**: Detaillierte Echtzeit-Rückmeldung über alle Vorgänge direkt im Fenster.
 
 ### 2. Headless & CLI-Automation (Silent Mode)
 ```powershell
