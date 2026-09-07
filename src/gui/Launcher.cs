@@ -36,15 +36,15 @@ namespace SurfacePro6Tuner
                 {
                     FileName = "powershell.exe",
                     Arguments = "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"" + scriptPath + "\"",
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
+                    UseShellExecute = true,
+                    Verb = "runas",
                     WindowStyle = ProcessWindowStyle.Hidden,
                     WorkingDirectory = baseDir
                 };
 
                 using (Process proc = Process.Start(psi))
                 {
-                    proc.WaitForExit();
+                    // Started elevated process successfully
                 }
             }
             catch (Exception ex)
