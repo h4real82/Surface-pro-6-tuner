@@ -1,0 +1,22 @@
+# References & Sub-Repositories
+ref/
+
+# Backups & Registry Snapshots (Device-specific & private)
+backups/
+*.reg.bak
+*.json.bak
+
+# Graphify Knowledge Graph outputs & Cache
+graphify-out/
+.graphify*
+
+# Logs & Temporary Files
+*.log
+*.tmp
+
+# Operating System & IDE Files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

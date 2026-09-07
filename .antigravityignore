@@ -1,0 +1,29 @@
+# Dependencies & Builds
+node_modules/
+dist/
+build/
+.next/
+vendor/
+
+# Binaries & Logs
+*.lock
+package-lock.json
+pnpm-lock.yaml
+*.log
+*.min.js
+*.min.css
+
+# Große Datensätze & Assets
+*.svg
+*.png
+*.jpg
+*.mp4
+*.pdf
+coverage/
+.git/
+ref/
+*.log
+*.tmp
+node_modules/
+bin/
+obj/

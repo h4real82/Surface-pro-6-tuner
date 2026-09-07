@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "device": "Microsoft Surface Pro 6 (1796)",
+  "description": "Registry Safety AllowList & Protection Matrix for Surface Pro 6 Tuner",
+  "protectedPaths": [
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Surface*",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\dptf*",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\intel_thermal*",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Sensor*",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SensorsDataService",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\WbioSrvc",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\TouchScreen*",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\precise_touch*",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\HID\\*SURFACE*",
+    "HKLM:\\HARDWARE\\DESCRIPTION\\System\\BIOS"
+  ],
+  "protectedValues": [
+    "CsEnabled",
+    "PlatformAoAcOverride"
+  ],
+  "allowedTweakScopes": [
+    "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+    "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+    "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+    "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+    "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender",
+    "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies",
+    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings",
+    "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+  ],
+  "surfaceSpecificOptimizations": {
+    "connectedStandby": {
+      "key": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power",
+      "value": "CustomizeConnectedStandby",
+      "description": "Optimiere Connected Standby Verhalten fuer Akkulaufzeit"
+    },
+    "surfacePenLatency": {
+      "key": "HKCU:\\Software\\Microsoft\\Wisp\\Pen\\SysEventParameters",
+      "value": "LatencyOptimization",
+      "description": "Reduziert Latenz fuer Surface Pen"
+    }
+  }
+}
