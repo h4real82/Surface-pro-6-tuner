@@ -62,6 +62,17 @@ Starte einfach direkt per Doppelklick die Anwendung:
 
 * **Kein schwarzes Konsolenfenster**: Startet sofort als moderne, native Windows-Anwendung im Fluent Dark Design.
 * **Automatische Rechteerhöhung**: Fordert über das Windows-UAC-Manifest automatisch Administratorrechte an, damit Änderungen ohne Zugriffsfehler ins System geschrieben werden können.
+* **🔍 System Health & Optimierungs-Scanner**:
+  - Analysiert das System live gegen alle empfohlenen Tweaks, Akkuzustand und CPU-Drosselung.
+  - Zeigt einen interaktiven Optimierungs-Score (0–100%) mit Statusplaketten an (`[OPTIMIERT]` vs. `[OFFEN]`).
+  - Erlaubt das gezielte Anwenden einzelner Empfehlungen oder aller Tweaks mit 1 Klick.
+* **🧹 Tidy Up & Deep Cleaner**:
+  - **Windows Apps & Bloatware deinstallieren**: Entfernt vorinstallierte Apps (wie Solitär, Xbox Game Bar, Clipchamp, Microsoft News etc.) restlos für alle Benutzer sowie aus dem Online-Provisioning, sodass sie auch bei künftigen Windows-Updates nicht zurückkehren.
+  - **Speicher- & Cache-Bereinigung nach 3 Sicherheitsstufen**:
+    - **Stufe 1 (Sicher / Basis - 0% Risiko)**: Benutzer-Temp, System-Temp, Fehlerberichte, Miniaturansichten und Browser-Caches.
+    - **Stufe 2 (Erweitert / Standard)**: Inklusive Windows Update Download-Cache, Delivery-Optimization, DirectX Shader Cache & Prefetch.
+    - **Stufe 3 (Tiefenreinigung / Aggressiv)**: Inklusive DISM Component-Store Bereinigung und alter Windows-Installationen (`Windows.old`).
+  - Integrierte Speicherplatzanalyse mit exakter MB/GB-Vorschau.
 * **Moderne Aktions-Karten**:
   - `[Performance anwenden]`: Deaktiviert Telemetrie, GameDVR, Cortana und Web-Suche.
   - `[Akku anwenden]`: Schaltet Connected Standby Wake-Timer ab und drosselt Hintergrund-Apps.
