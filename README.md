@@ -21,38 +21,68 @@ Dieses Projekt kombiniert die stärksten Ansätze führender Windows-Tuning-Tool
 
 ```text
 Surface-pro-6-tuner/
+├── SurfaceTuner.ps1                 # Haupt-CLI & Headless Automation Engine
+├── Start-Tuner.bat                  # 1-Klick Launcher mit automatischer UAC-Erhoehung
 ├── src/
+│   ├── engine/                      # Asynchrone Job-Engine & Profil-Runner
+│   │   └── Job-Runner.ps1
+│   ├── hardware/                    # Hardware-Erkennung & PROCHOT-Thermal-Monitoring
+│   │   └── Thermal-Manager.ps1
+│   ├── profiles/                    # Deklarative Surface Pro 6 Tuning-Profile
+│   │   └── Tuning-Definitions.json
 │   └── safety/                      # Sicherheits- & Validierungsschicht
 │       ├── Surface-AllowList.json   # Hardware-Schutzmatrix (Touch, DPTF, Sensoren)
-│       ├── Registry-Validator.ps1   # Validiert geplante Tweaks vor Ausführung
+│       ├── Registry-Validator.ps1   # Validiert geplante Tweaks vor Ausfuehrung
 │       ├── Backup-Manager.ps1       # Erstellt Pre-Tweak Snapshots & Rollbacks
-│       └── Test-SafetyModule.ps1   # Automatisierte Unit-Tests für Safety Gates
+│       └── Test-SafetyModule.ps1   # Automatisierte Unit-Tests fuer Safety Gates
+├── tests/                           # End-to-End Test Suite
+│   └── Test-TunerE2E.ps1
 ├── backups/                         # Lokale Rollback-Snapshots (in .gitignore)
 ├── ref/                             # Geklonte Referenzprojekte (in .gitignore)
 ├── .agents/                         # Antigravity Rules & Workflows
-├── .antigravityignore               # Ausschlussmuster für Token-Schutz
+├── .antigravityignore               # Ausschlussmuster fuer Token-Schutz
 ├── .gitignore                       # Git-Ausschlüsse
 └── README.md                        # Projektdokumentation
 ```
 
 ---
 
-## 🛡️ Sicherheitsarchitektur (`src/safety`)
+## 🚀 Nutzung
 
-Vor jedem Eingriff in das System greift die zweistufige Schutzschicht:
+### 1. 1-Klick-Starter (Interaktiv mit UAC-Abfrage)
+Einfach die Datei [`Start-Tuner.bat`](file:///c:/Users/h4rea/Documents/Projekte/Surface-pro-6-tuner/Start-Tuner.bat) per Doppelklick starten. Das Skript fordert automatisch Administratorrechte an und bietet ein Menü:
+1. Alles optimieren (Performance + Battery + Thermal)
+2. Nur Performance & Telemetrie
+3. Nur Akku & Modern Standby
+4. Hardware- & Thermal-Status
+5. Dry-Run Simulation (Sicherheitstest)
+6. Rollback / Letztes Snapshot wiederherstellen
 
-1. **Hardware Protection Gate**:
-   - Schützt kritische Treiber (`Services\Surface*`, `Services\Sensor*`, `TouchScreen*`).
-   - Verhindert CPU-Throttling-Schäden durch Schutz von Intel DPTF (`Services\dptf*`).
-   - Schützt Connected Standby Einstellungen (`CsEnabled`, `PlatformAoAcOverride`).
-2. **Snapshot & Rollback**:
-   - Speichert den Originalwert und -typ (`DWord`, `String`, etc.) in `backups/`.
-   - Ermöglicht jederzeit die vollständige Wiederherstellung.
+### 2. Headless & CLI-Automation (Silent Mode)
+```powershell
+# Vollstaendige Optimierung ohne Rueckfragen (Headless JSON Output)
+powershell -ExecutionPolicy Bypass -File SurfaceTuner.ps1 -Profile All -AutoAccept -Headless
 
-### Tests ausführen
+# Hardware & Throttling Status abfragen
+powershell -ExecutionPolicy Bypass -File SurfaceTuner.ps1 -Status
+
+# Simulation / Safety-Check (Dry-Run)
+powershell -ExecutionPolicy Bypass -File SurfaceTuner.ps1 -Profile All -DryRun
+
+# Rollback auf das vorherige Snapshot
+powershell -ExecutionPolicy Bypass -File SurfaceTuner.ps1 -Rollback
+```
+
+---
+
+## 🧪 Tests ausführen
 
 ```powershell
+# Safety Module Unit-Tests
 powershell -ExecutionPolicy Bypass -File src/safety/Test-SafetyModule.ps1
+
+# End-to-End Integrations-Tests
+powershell -ExecutionPolicy Bypass -File tests/Test-TunerE2E.ps1
 ```
 
 ---
@@ -64,3 +94,4 @@ Basiert auf Architekturen und Konzepten von:
 - [winutil](https://github.com/ChrisTitusTech/winutil)
 - [Sophia-Script-for-Windows](https://github.com/farag2/Sophia-Script-for-Windows)
 - [DisablePROCHOT](https://github.com/arter97/DisablePROCHOT)
+

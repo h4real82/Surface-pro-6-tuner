@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "profiles": [
+    {
+      "id": "SurfacePerformance",
+      "name": "Surface Pro 6 Performance Optimizer",
+      "description": "Reduces background CPU/GPU contention, disables telemetry and Cortana/Bing search indexing.",
+      "tweaks": [
+        {
+          "id": "DisableTelemetry",
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "valueName": "AllowTelemetry",
+          "targetValue": 0,
+          "type": "DWord",
+          "description": "Deaktiviert Windows-Diagnosedaten-Telemetrie"
+        },
+        {
+          "id": "DisableBingSearch",
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "valueName": "BingSearchEnabled",
+          "targetValue": 0,
+          "type": "DWord",
+          "description": "Deaktiviert Bing-Websuche im Startmenue fuer schnellere lokale App-Suche"
+        },
+        {
+          "id": "DisableCortana",
+          "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+          "valueName": "AllowCortana",
+          "targetValue": 0,
+          "type": "DWord",
+          "description": "Deaktiviert Cortana-Hintergrunddienst"
+        },
+        {
+          "id": "DisableGameDVR",
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+          "valueName": "AppCaptureEnabled",
+          "targetValue": 0,
+          "type": "DWord",
+          "description": "Deaktiviert Hintergrund-Videoaufzeichnung (entlastet Intel UHD 620 GPU)"
+        }
+      ]
+    },
+    {
+      "id": "SurfaceBattery",
+      "name": "Surface Pro 6 Battery & Standby Optimizer",
+      "description": "Optimiert Connected Standby Verhalten und Hintergrund-App-Aufwachen fuer laengere Akkulaufzeit.",
+      "tweaks": [
+        {
+          "id": "OptimizeConnectedStandby",
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power",
+          "valueName": "CustomizeConnectedStandby",
+          "targetValue": 1,
+          "type": "DWord",
+          "description": "Schaltet aggressive Netzwerkaufwacher im Standby-Modus ab"
+        },
+        {
+          "id": "ThrottleBackgroundApps",
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+          "valueName": "GlobalUserDisabled",
+          "targetValue": 1,
+          "type": "DWord",
+          "description": "Verhindert staendiges Aufwachen von UWP-Apps im Hintergrund"
+        },
+        {
+          "id": "DisableAdvertisingId",
+          "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+          "valueName": "TailoredExperiencesWithDiagnosticDataEnabled",
+          "targetValue": 0,
+          "type": "DWord",
+          "description": "Deaktiviert benutzerdefinierte Werbe- und Tracking-Erfahrungen"
+        }
+      ]
+    },
+    {
+      "id": "ThermalUnlock",
+      "name": "Surface Pro 6 Thermal Throttling Mitigation",
+      "description": "Konfiguriert das Power-Overlay fuer maximale CPU-Stabilitaet und verhindert 400 MHz Locks.",
+      "tweaks": [
+        {
+          "id": "PowerOverlayPerformance",
+          "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power",
+          "valueName": "UserPowerModeSetting",
+          "targetValue": 2,
+          "type": "DWord",
+          "description": "Setzt Windows Power Overlay Slider auf Hoechstleistung"
+        }
+      ]
+    }
+  ]
+}

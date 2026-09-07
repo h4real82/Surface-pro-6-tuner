@@ -29,6 +29,7 @@
     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
     "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+    "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
     "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings",
     "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
   ],
