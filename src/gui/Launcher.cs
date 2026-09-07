@@ -47,10 +47,23 @@ namespace SurfacePro6Tuner
                     // Started elevated process successfully
                 }
             }
+            catch (System.ComponentModel.Win32Exception wEx)
+            {
+                // NativeErrorCode 1223 = ERROR_CANCELLED (User clicked 'No' on UAC prompt)
+                if (wEx.NativeErrorCode != 1223)
+                {
+                    MessageBox.Show(
+                        "Administrator-Bestaetigung fehlgeschlagen:\n" + wEx.Message,
+                        "Surface Pro 6 Tuner",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Unerwarteter Fehler beim Starten des Tuners:\n" + ex.Message,
+                    "Fehler beim Starten des Tuners:\n" + ex.Message,
                     "Surface Pro 6 Tuner - Fehler",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

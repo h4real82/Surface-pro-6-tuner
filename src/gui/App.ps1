@@ -86,20 +86,20 @@ function Execute-ProfileFromUi([string]$profileId, [string]$profileName) {
 
         foreach ($r in $results) {
             if ($r.Status -eq "SUCCESS") {
-                Log-Ui "✅ $($r.TweakId): Erfolgreich angewendet. (Snapshot: $($r.Snapshot))"
+                Log-Ui "[ERFOLG] $($r.TweakId): Erfolgreich angewendet. (Snapshot: $($r.Snapshot))"
             } elseif ($r.Status -eq "SKIPPED_ALREADY_APPLIED") {
-                Log-Ui "ℹ️ $($r.TweakId): Bereits aktiv (Wert: $($r.CurrentVal))."
+                Log-Ui "[INFO] $($r.TweakId): Bereits aktiv (Wert: $($r.CurrentVal))."
             } elseif ($r.Status -eq "BLOCKED") {
-                Log-Ui "🛑 $($r.TweakId): VOM SAFETY GATE BLOCKIERT ($($r.Reason))."
+                Log-Ui "[BLOCKIERT] $($r.TweakId): VOM SAFETY GATE BLOCKIERT ($($r.Reason))."
             } else {
-                Log-Ui "⚠️ $($r.TweakId): Status $($r.Status)."
+                Log-Ui "[STATUS] $($r.TweakId): Status $($r.Status)."
             }
         }
         Log-Ui "=== Profil $profileName abgeschlossen ===`r`n"
         Refresh-SnapshotsList
         Refresh-HardwareInfo
     } catch {
-        Log-Ui "❌ Schwerwiegender Fehler: $_"
+        Log-Ui "[FEHLER] Schwerwiegender Fehler: $_"
     }
 }
 
@@ -123,17 +123,17 @@ $btnApplyAll.Add_Click({
 $btnRollbackLatest.Add_Click({
     $snapshots = Get-RegistrySnapshots
     if ($snapshots.Count -eq 0) {
-        Log-Ui "Keine Snapshots zum Rückgängig machen vorhanden."
+        Log-Ui "Keine Snapshots zum Rueckgaengig machen vorhanden."
         return
     }
     $latest = $snapshots[0]
-    Log-Ui "Rückgängig machen von letztem Snapshot: $($latest.TweakId)..."
+    Log-Ui "Rueckgaengig machen von letztem Snapshot: $($latest.TweakId)..."
     try {
         Restore-RegistrySnapshot -SnapshotFilePath $latest.File
-        Log-Ui "✅ Erfolgreich rückgängig gemacht: $($latest.TweakId) -> Originalzustand wiederhergestellt."
+        Log-Ui "[ERFOLG] Erfolgreich rueckgaengig gemacht: $($latest.TweakId) -> Originalzustand wiederhergestellt."
         Refresh-SnapshotsList
     } catch {
-        Log-Ui "❌ Fehler beim Rollback: $_"
+        Log-Ui "[FEHLER] Fehler beim Rollback: $_"
     }
 })
 
@@ -141,24 +141,24 @@ $btnRollbackSelected.Add_Click({
     $idx = $cmbSnapshots.SelectedIndex
     $snapshots = Get-RegistrySnapshots
     if ($idx -lt 0 -or $idx -ge $snapshots.Count) {
-        Log-Ui "Ungültige Auswahl für Rollback."
+        Log-Ui "Ungueltige Auswahl fuer Rollback."
         return
     }
     $chosen = $snapshots[$idx]
-    Log-Ui "Rückgängig machen von Snapshot: $($chosen.TweakId)..."
+    Log-Ui "Rueckgaengig machen von Snapshot: $($chosen.TweakId)..."
     try {
         Restore-RegistrySnapshot -SnapshotFilePath $chosen.File
-        Log-Ui "✅ Erfolgreich rückgängig gemacht: $($chosen.TweakId) -> Originalzustand wiederhergestellt."
+        Log-Ui "[ERFOLG] Erfolgreich rueckgaengig gemacht: $($chosen.TweakId) -> Originalzustand wiederhergestellt."
         Refresh-SnapshotsList
     } catch {
-        Log-Ui "❌ Fehler beim Rollback: $_"
+        Log-Ui "[FEHLER] Fehler beim Rollback: $_"
     }
 })
 
 # Initial Startup
 Refresh-HardwareInfo
 Refresh-SnapshotsList
-Log-Ui "Surface Pro 6 Tuner bereit. Wähle eine Aktion aus."
+Log-Ui "Surface Pro 6 Tuner bereit. Waehle eine Aktion aus."
 
 # Show Window
 $window.ShowDialog() | Out-Null
